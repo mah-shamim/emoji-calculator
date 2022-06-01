@@ -52,7 +52,7 @@
                         'Accept': 'application/json'
                     },
                     cache: false,
-                    dataType: 'json',
+                    //dataType: 'json',
                     success: function (response) {
                         console.log(response);
                         /*if (response.status === true) {

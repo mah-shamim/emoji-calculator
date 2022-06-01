@@ -29,6 +29,8 @@ class EmojiCalculatorController extends Controller
     }
 
     public function calculate(EmojiCalculatorRequest $emojiCalculatorRequest){
-        return $emojiCalculatorRequest->all();
+        $expression = $emojiCalculatorRequest->expression;
+        return $this->emojiCalculatorService->calculate($expression);
+        //return $emojiCalculatorRequest->all();
     }
 }

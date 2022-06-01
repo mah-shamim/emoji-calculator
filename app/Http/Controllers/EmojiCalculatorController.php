@@ -22,7 +22,7 @@ class EmojiCalculatorController extends Controller
      * Display a listing of the resource.
      *
      */
-    public function index()
+    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return view('emoji-calculator.index');
     }

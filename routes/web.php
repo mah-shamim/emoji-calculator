@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-});
+});*/
+
+Route::get('/', [\App\Http\Controllers\EmojiCalculatorController::class, 'index'])->name('emoji-calculator.index');
+Route::post('/', [\App\Http\Controllers\EmojiCalculatorController::class, 'calculate'])->name('emoji-calculator.calculate');

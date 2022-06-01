@@ -26,4 +26,8 @@ class EmojiCalculatorController extends Controller
     {
         return view('emoji-calculator.index');
     }
+
+    public function calculate(){
+
+    }
 }

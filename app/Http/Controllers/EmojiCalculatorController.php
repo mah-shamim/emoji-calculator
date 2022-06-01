@@ -17,4 +17,13 @@ class EmojiCalculatorController extends Controller
     {
         $this->emojiCalculatorService = $emojiCalculatorService;
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     */
+    public function index()
+    {
+        return view('emoji-calculator.index');
+    }
 }

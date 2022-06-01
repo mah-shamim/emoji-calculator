@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EmojiCalculatorRequest;
 use App\Services\EmojiCalculatorService;
 use Illuminate\Http\Request;
 
@@ -27,7 +28,7 @@ class EmojiCalculatorController extends Controller
         return view('emoji-calculator.index');
     }
 
-    public function calculate(){
-
+    public function calculate(EmojiCalculatorRequest $emojiCalculatorRequest){
+        return $emojiCalculatorRequest->all();
     }
 }

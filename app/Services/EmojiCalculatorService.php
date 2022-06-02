@@ -31,49 +31,93 @@ class EmojiCalculatorService
         $this->expression = '';
     }
 
+    /**
+     * @param string $text
+     * @return array
+     */
     public function calculate(string $text){
-        $this->expression = json_encode(strtolower($text));
+        $this->expression = (strtolower($text));
         return $this->emojiExpression();
 
     }
 
-    private function emojiExpression(){
+    /**
+     * @return array
+     */
+    private function emojiExpression(): array
+    {
         $output_array = array();
-        if(preg_match('/([0-9]+)[\s-]*(\\\u[0-9a-f]{4}\\\u[0-9a-f]{4})[\s-]*([0-9]+)/', $this->expression, $output_array)>0){
-            $this->firstOperent = $output_array[1]??'';
-            $this->secondOperent = $output_array[3]??'';
-            $this->operator = $output_array[2]??'';
-        }elseif(preg_match('/([0-9]+)[\s-]*(u\+[0-9a-fA-F]{5})[\s-]*([0-9]+)/', $this->expression, $output_array)>0){
+        if(preg_match('/([0-9]+)[\s-]*(u\+[0-9a-fA-F]{5}|👽|💀|👻|😱|alien|skull|ghost|scream)[\s-]*([0-9]+)/i', $this->expression, $output_array)>0){
             $this->firstOperent = $output_array[1]??'';
             $this->secondOperent = $output_array[3]??'';
             $this->operator = $output_array[2]??'';
         }else{
-            return  $this->expression;
+            $this->firstOperent = $output_array[1]??'';
+            $this->secondOperent = $output_array[3]??'';
+            $this->operator = $output_array[2]??'';
         }
         return $this->calculator();
     }
 
-    private function calculator(){
+    /**
+     * @return array
+     */
+    private function calculator(): array
+    {
+        $result = array();
+        $result['operation'] = '';
+        $result['explanation'] = '';
+        $result['result'] = '';
+
         switch($this->operator){
             case '\\ud83d\\udc7d':
+            case '👽':
+            case 'alien':
             case 'u+1f47d':
-                return $this->firstOperent + $this->secondOperent;
+                {
+                    $result['operation'] = 'Addition';
+                    $result['result'] = $this->firstOperent + $this->secondOperent;
+                    $result['explanation'] = $this->firstOperent .' + '. $this->secondOperent .' = '. $result['result'];
+                    break;
+                }
             case '\\ud83d\\udc80':
+            case '💀':
+            case 'skull':
             case 'u+1f480':
-                return $this->firstOperent - $this->secondOperent;
+                {
+                    $result['operation'] = 'Subtraction';
+                    $result['result'] = $this->firstOperent - $this->secondOperent;
+                    $result['explanation'] = $this->firstOperent .' - '. $this->secondOperent .' = '. $result['result'];
+                    break;
+                }
             case '\\ud83d\\udc7b':
+            case '👻':
+            case 'ghost':
             case 'u+1f47b':
-                return $this->firstOperent * $this->secondOperent;
+                {
+                    $result['operation'] = 'Multiplication';
+                    $result['result'] = $this->firstOperent * $this->secondOperent;
+                    $result['explanation'] = $this->firstOperent .' X '. $this->secondOperent .' = '. $result['result'];
+                    break;
+                }
             case '\\ud83d\\ude31':
+            case '😱':
+            case 'scream':
             case 'u+1f631':
-                return $this->firstOperent / $this->secondOperent;
+                {
+                    $result['operation'] = 'Division';
+                    $result['result'] = $this->firstOperent / $this->secondOperent;
+                    $result['explanation'] = $this->firstOperent .' / '. $this->secondOperent .' = '. $result['result'];
+                    break;
+                }
             default:
-                return $this->operator;
+                {
+                    $result['operation'] = 'INVALID';
+                    $result['result'] = 'N/A';
+                    $result['explanation'] = 'Invalid Expression';
+                    break;
+                }
         }
-    }
-    private function emoji_to_unicode($emoji) {
-       $emoji = mb_convert_encoding($emoji, 'UTF-32', 'UTF-8');
-       $unicode = strtoupper(preg_replace("/^[0]+/","U+",bin2hex($emoji)));
-       return $unicode;
+        return $result;
     }
 }

@@ -14,8 +14,22 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <form>
+                <h1 class="text-center">Emoji Calculator!</h1>
+                <form class="mt-3">
                     <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" name="firstOperand" id="firstOperand" aria-label="First operand" class="form-control" placeholder="First operand" required>
+                            <select name="operator" id="operator" class="custom-select" required>
+                                <option selected>Choose Operator</option>
+                                <option value="👽">👽 Addition (Alien)</option>
+                                <option value="💀">💀 Subtraction (Skull)</option>
+                                <option value="👻">👻 Multiplication (Ghost)</option>
+                                <option value="😱">😱 Division (Scream)</option>
+                            </select>
+                            <input type="text" name="secondOperand" id="secondOperand" aria-label="Second operand" placeholder="Second operand" class="form-control" required>
+                        </div>
+                    </div>
+                    {{--<div class="form-group">
                         <label for="expression">Expression</label>
                         <input type="text" class="form-control" id="expression" aria-describedby="expressionHelp">
                         <small id="expressionHelp" class="form-text text-muted">
@@ -24,10 +38,11 @@
                             👻 Multiplication (Ghost),
                             😱 Division (Scream)
                         </small>
-                    </div>
+                    </div>--}}
                     <button type="button" role="button" id="calculate" class="btn btn-primary">Calculate</button>
-                    <div id="result" class="mt-3 border rounded">
-
+                    <div id="result" class="mt-3 border rounded p-2">
+                        <p><b>Operation : </b>N/A<br>
+                            <b>Explanation : </b>N/A</p>
                     </div>
                 </form>
             </div>
@@ -42,7 +57,10 @@
         $(document).ready(function () {
 
             $("#calculate").click(function () {
-                var expression = $("#expression").val();
+                var firstOperand = $("#firstOperand").val();
+                var operator = $("#operator").val();
+                var secondOperand = $("#secondOperand").val();
+                var expression = firstOperand+operator+secondOperand;
                 $.ajax({
                     method: 'POST',
                     url: '{{route('emoji-calculator.calculate')}}',
@@ -52,42 +70,18 @@
                         'Accept': 'application/json'
                     },
                     cache: false,
-                    //dataType: 'json',
+                    dataType: 'json',
                     success: function (response) {
-                        console.log(response);
-                        /*if (response.status === true) {
-                            notify('Already Registered Applicant', 'warning', 'Notification');
-                            const applicant = response.data.pop();
-
-                            //load all except checkbox
-                            for (const field in applicant) {
-                                const fieldId = "#" + field;
-                                if ($("body").find(fieldId)) {
-                                    const inputField = $(fieldId);
-                                    if (applicant.hasOwnProperty(field)) {
-                                        inputField.val(applicant[field]);
-                                        inputField.trigger('change');
-                                    }
-                                }
-                            }
-
-                            //checkbox
-                            applicant.survey_id.forEach(function (element) {
-                                $("#survey_id-checkbox-" + element).prop("checked", true);
-                            });
-                            //radio
-                            $("#is_employee-radio-" + applicant.is_employee).prop("checked", true);
-                            $("#gender_id-radio-" + applicant.gender_id).prop("checked", true);
-
-                            if (applicant.is_employee === 'yes') {
-                                $("#work_space").show();
-                            } else {
-                                $("#work_space").hide();
-                            }
-
+                        if (response.operation !== 'INVALID') {
+                            let message = '<p><b>Operation : </b>' + response.operation +
+                                '</br><b>Explanation : </b>' + response.explanation +'</p>';
+                            $('#result').html(message);
                         } else {
-                            $("#id").val('');
-                        }*/
+                            let message = '<p><b>Operation : </b>' + response.operation +
+                                '</br><b>Explanation : </b>' + response.explanation +'</p>';
+                            $('#result').html(message);
+                            alert(response.operation);
+                        }
                     }
                 });
             });

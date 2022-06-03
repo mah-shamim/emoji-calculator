@@ -4,6 +4,11 @@
 namespace App\Services;
 
 
+use App\Services\EmojiCalculator\EmojiCalculatorAddition;
+use App\Services\EmojiCalculator\EmojiCalculatorDivision;
+use App\Services\EmojiCalculator\EmojiCalculatorMultiplication;
+use App\Services\EmojiCalculator\EmojiCalculatorSubtraction;
+
 class EmojiCalculatorService
 {
     /**
@@ -11,13 +16,13 @@ class EmojiCalculatorService
      */
     private $expression;
     /**
-     * @var mixed $firstOperent
+     * @var mixed $firstOperand
      */
-    private $firstOperent;
+    private $firstOperand;
     /**
-     * @var mixed $secondOperent
+     * @var mixed $secondOperand
      */
-    private $secondOperent;
+    private $secondOperand;
     /**
      * @var string $operator
      */
@@ -48,12 +53,12 @@ class EmojiCalculatorService
     {
         $output_array = array();
         if(preg_match('/([0-9]+)[\s-]*(u\+[0-9a-fA-F]{5}|👽|💀|👻|😱|alien|skull|ghost|scream)[\s-]*([0-9]+)/i', $this->expression, $output_array)>0){
-            $this->firstOperent = $output_array[1]??'';
-            $this->secondOperent = $output_array[3]??'';
+            $this->firstOperand = $output_array[1]??'';
+            $this->secondOperand = $output_array[3]??'';
             $this->operator = $output_array[2]??'';
         }else{
-            $this->firstOperent = $output_array[1]??'';
-            $this->secondOperent = $output_array[3]??'';
+            $this->firstOperand = $output_array[1]??'';
+            $this->secondOperand = $output_array[3]??'';
             $this->operator = $output_array[2]??'';
         }
         return $this->calculator();
@@ -74,42 +79,27 @@ class EmojiCalculatorService
             case '👽':
             case 'alien':
             case 'u+1f47d':
-                {
-                    $result['operation'] = 'Addition';
-                    $result['result'] = $this->firstOperent + $this->secondOperent;
-                    $result['explanation'] = $this->firstOperent .' + '. $this->secondOperent .' = '. $result['result'];
-                    break;
-                }
+                $result = new EmojiCalculatorAddition($this->firstOperand,$this->secondOperand);
+                break;
+
             case '\\ud83d\\udc80':
             case '💀':
             case 'skull':
             case 'u+1f480':
-                {
-                    $result['operation'] = 'Subtraction';
-                    $result['result'] = $this->firstOperent - $this->secondOperent;
-                    $result['explanation'] = $this->firstOperent .' - '. $this->secondOperent .' = '. $result['result'];
-                    break;
-                }
+                $result = new EmojiCalculatorSubtraction($this->firstOperand,$this->secondOperand);
+                break;
             case '\\ud83d\\udc7b':
             case '👻':
             case 'ghost':
             case 'u+1f47b':
-                {
-                    $result['operation'] = 'Multiplication';
-                    $result['result'] = $this->firstOperent * $this->secondOperent;
-                    $result['explanation'] = $this->firstOperent .' X '. $this->secondOperent .' = '. $result['result'];
-                    break;
-                }
+                $result = new EmojiCalculatorMultiplication($this->firstOperand,$this->secondOperand);
+                break;
             case '\\ud83d\\ude31':
             case '😱':
             case 'scream':
             case 'u+1f631':
-                {
-                    $result['operation'] = 'Division';
-                    $result['result'] = $this->firstOperent / $this->secondOperent;
-                    $result['explanation'] = $this->firstOperent .' / '. $this->secondOperent .' = '. $result['result'];
-                    break;
-                }
+                $result = new EmojiCalculatorDivision($this->firstOperand,$this->secondOperand);
+                break;
             default:
                 {
                     $result['operation'] = 'INVALID';
@@ -118,6 +108,6 @@ class EmojiCalculatorService
                     break;
                 }
         }
-        return $result;
+        return $result->perform();
     }
 }

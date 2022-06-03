@@ -18,15 +18,15 @@
                 <form class="mt-3">
                     <div class="form-group">
                         <div class="input-group">
-                            <input type="text" name="firstOperand" id="firstOperand" aria-label="First operand" class="form-control" placeholder="First operand" required>
+                            <input type="number" name="firstOperand" id="firstOperand" aria-label="First operand" class="form-control" placeholder="First operand" required min="0">
                             <select name="operator" id="operator" class="custom-select" required>
-                                <option selected>Choose Operator</option>
+                                <option selected value="">Choose Operator</option>
                                 <option value="👽">👽 Addition (Alien)</option>
                                 <option value="💀">💀 Subtraction (Skull)</option>
                                 <option value="👻">👻 Multiplication (Ghost)</option>
                                 <option value="😱">😱 Division (Scream)</option>
                             </select>
-                            <input type="text" name="secondOperand" id="secondOperand" aria-label="Second operand" placeholder="Second operand" class="form-control" required>
+                            <input type="number" name="secondOperand" id="secondOperand" aria-label="Second operand" placeholder="Second operand" class="form-control" required min="0">
                         </div>
                     </div>
                     {{--<div class="form-group">
@@ -60,30 +60,36 @@
                 var firstOperand = $("#firstOperand").val();
                 var operator = $("#operator").val();
                 var secondOperand = $("#secondOperand").val();
-                var expression = firstOperand+operator+secondOperand;
-                $.ajax({
-                    method: 'POST',
-                    url: '{{route('emoji-calculator.calculate')}}',
-                    data: {'expression': expression, '_token':'{{csrf_token()}}'},
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest',
-                        'Accept': 'application/json'
-                    },
-                    cache: false,
-                    dataType: 'json',
-                    success: function (response) {
-                        if (response.operation !== 'INVALID') {
-                            let message = '<p><b>Operation : </b>' + response.operation +
-                                '</br><b>Explanation : </b>' + response.explanation +'</p>';
-                            $('#result').html(message);
-                        } else {
-                            let message = '<p><b>Operation : </b>' + response.operation +
-                                '</br><b>Explanation : </b>' + response.explanation +'</p>';
-                            $('#result').html(message);
-                            alert(response.operation);
+                console.log(operator);
+                if(operator.length == 0){
+                    $("#operator").focus();
+                    alert('Please select Operator');
+                }else{
+                    var expression = firstOperand+operator+secondOperand;
+                    $.ajax({
+                        method: 'POST',
+                        url: '{{route('emoji-calculator.calculate')}}',
+                        data: {'expression': expression, '_token':'{{csrf_token()}}'},
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'Accept': 'application/json'
+                        },
+                        cache: false,
+                        dataType: 'json',
+                        success: function (response) {
+                            if (response.operation !== 'INVALID') {
+                                let message = '<p><b>Operation : </b>' + response.operation +
+                                    '</br><b>Explanation : </b>' + response.explanation +'</p>';
+                                $('#result').html(message);
+                            } else {
+                                let message = '<p><b>Operation : </b>' + response.operation +
+                                    '</br><b>Explanation : </b>' + response.explanation +'</p>';
+                                $('#result').html(message);
+                                alert(response.operation);
+                            }
                         }
-                    }
-                });
+                    });
+                }
             });
 
         });

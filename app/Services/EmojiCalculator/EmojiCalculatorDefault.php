@@ -6,7 +6,7 @@ namespace App\Services\EmojiCalculator;
 
 use App\Interfaces\EmojiCalculator\EmojiCalculatorOperation;
 
-class EmojiCalculatorAddition implements EmojiCalculatorOperation
+class EmojiCalculatorDefault implements EmojiCalculatorOperation
 {
 
     /**
@@ -38,9 +38,9 @@ class EmojiCalculatorAddition implements EmojiCalculatorOperation
      */
     public function perform():mixed
     {
-        $this->result['operation'] = 'Addition';
-        $this->result['result'] = $this->firstOperand + $this->secondOperand;
-        $this->result['explanation'] = $this->firstOperand .' + '. $this->secondOperand .' = '. $this->result['result'];
+        $this->result['operation'] = 'INVALID';
+        $this->result['result'] = 'N/A';
+        $this->result['explanation'] = 'Invalid Expression';
         return $this->result;
     }
 }

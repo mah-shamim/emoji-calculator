@@ -5,6 +5,7 @@ namespace App\Services;
 
 
 use App\Services\EmojiCalculator\EmojiCalculatorAddition;
+use App\Services\EmojiCalculator\EmojiCalculatorDefault;
 use App\Services\EmojiCalculator\EmojiCalculatorDivision;
 use App\Services\EmojiCalculator\EmojiCalculatorMultiplication;
 use App\Services\EmojiCalculator\EmojiCalculatorSubtraction;
@@ -101,12 +102,8 @@ class EmojiCalculatorService
                 $result = new EmojiCalculatorDivision($this->firstOperand,$this->secondOperand);
                 break;
             default:
-                {
-                    $result['operation'] = 'INVALID';
-                    $result['result'] = 'N/A';
-                    $result['explanation'] = 'Invalid Expression';
-                    break;
-                }
+                $result = new EmojiCalculatorDefault($this->firstOperand,$this->secondOperand);
+                break;
         }
         return $result->perform();
     }

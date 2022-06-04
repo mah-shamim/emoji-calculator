@@ -38,9 +38,6 @@ class EmojiCalculatorMultiplication implements EmojiCalculatorOperation
      */
     public function perform():mixed
     {
-        $this->result['operation'] = '';
-        $this->result['explanation'] = '';
-        $this->result['result'] = '';
         $this->result['operation'] = 'Multiplication';
         $this->result['result'] = $this->firstOperand * $this->secondOperand;
         $this->result['explanation'] = $this->firstOperand .' × '. $this->secondOperand .' = '. $this->result['result'];

@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\EmojiCalculatorRequest;
 use App\Services\EmojiCalculatorService;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 
 class EmojiCalculatorController extends Controller
 {

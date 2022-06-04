@@ -38,9 +38,6 @@ class EmojiCalculatorDivision implements EmojiCalculatorOperation
      */
     public function perform():mixed
     {
-        $this->result['operation'] = '';
-        $this->result['explanation'] = '';
-        $this->result['result'] = '';
         if($this->secondOperand == 0){
             $this->result['operation'] = 'Division';
             $this->result['result'] = "Can't divide by 0";

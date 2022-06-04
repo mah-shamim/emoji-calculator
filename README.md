@@ -11,14 +11,14 @@ composer install
 php artisan key:generate
 ```
 
-##Application Run
+## Application Run
 - To start the application run this command
 ```bash
 php artisan serve --port=5004
 ```
 - Click on this link: [Emoji Calculator](http://127.0.0.1:5004) to open application
 
-##Unit Test
+## Unit Test
 - To unit test the application
 ```bash
 php artisan test

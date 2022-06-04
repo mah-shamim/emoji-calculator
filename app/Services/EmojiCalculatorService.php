@@ -53,7 +53,7 @@ class EmojiCalculatorService
     private function emojiExpression(): array
     {
         $output_array = array();
-        if(preg_match('/([0-9]+)[\s-]*(u\+[0-9a-fA-F]{5}|👽|💀|👻|😱|alien|skull|ghost|scream)[\s-]*([0-9]+)/i', $this->expression, $output_array)>0){
+        if(preg_match('/(-?[0-9]+)(u\+[0-9a-fA-F]{5}|👽|💀|👻|😱|alien|skull|ghost|scream)(-?[0-9]+)/i', $this->expression, $output_array)>0){
             $this->firstOperand = $output_array[1]??'';
             $this->secondOperand = $output_array[3]??'';
             $this->operator = $output_array[2]??'';

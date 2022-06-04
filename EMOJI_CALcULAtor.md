@@ -26,13 +26,13 @@ php artisan test
 
 ## Manual
 When you see web page is loaded on web browser. please follow this instruction to operate this application.
-- Type first operand as number value only you can use positive number.
+- Type first operand as number value only you can use any number.
 - Select operator emoji icon from this available options
     1. 👽 Addition (Alien)
     2. 💀 Subtraction (Skull)
     3. 👻 Multiplication (Ghost)
     4. 😱 Division (Scream)
-- Type second operand as number value only you can use positive number.
+- Type second operand as number value only you can use any number.
 - Click the "Calculate" button to get result
 System replay will have Operation to confirm which operation program 
   detected and Operation explanation in human format.

@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\EmojiCalculatorRequest;
 use App\Services\EmojiCalculatorService;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 
 class EmojiCalculatorController extends Controller
 {
@@ -22,7 +25,7 @@ class EmojiCalculatorController extends Controller
      * Display a listing of the resource.
      *
      */
-    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    public function index(): Factory|View|Application
     {
         return view('emoji-calculator.index');
     }
@@ -34,7 +37,6 @@ class EmojiCalculatorController extends Controller
     public function calculate(EmojiCalculatorRequest $emojiCalculatorRequest): array
     {
         $expression = $emojiCalculatorRequest->expression;
-        $emojiCalculatorResult = $this->emojiCalculatorService->calculate($expression);
-        return $emojiCalculatorResult;
+        return $this->emojiCalculatorService->calculate($expression);
     }
 }

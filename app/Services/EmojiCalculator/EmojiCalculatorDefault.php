@@ -12,11 +12,11 @@ class EmojiCalculatorDefault implements EmojiCalculatorOperation
     /**
      * @var mixed $firstOperand
      */
-    private $firstOperand;
+    private mixed $firstOperand;
     /**
      * @var mixed $secondOperand
      */
-    private $secondOperand;
+    private mixed $secondOperand;
     /**
      * @var array $result
      */
@@ -34,13 +34,13 @@ class EmojiCalculatorDefault implements EmojiCalculatorOperation
     }
 
     /**
-     * @return mixed|void
+     * @return array
      */
-    public function perform():mixed
+    public function perform(): array
     {
         $this->result['operation'] = 'INVALID';
         $this->result['result'] = 'N/A';
-        $this->result['explanation'] = 'Invalid Expression';
+        $this->result['explanation'] = $this->firstOperand .' + '. $this->secondOperand .' = '. 'Invalid Expression';
         return $this->result;
     }
 }

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Interfaces\EmojiCalculator;
-
 
 interface EmojiCalculatorOperation
 {

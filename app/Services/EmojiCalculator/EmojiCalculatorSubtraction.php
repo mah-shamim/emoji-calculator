@@ -12,11 +12,11 @@ class EmojiCalculatorSubtraction implements EmojiCalculatorOperation
     /**
      * @var mixed $firstOperand
      */
-    private $firstOperand;
+    private mixed $firstOperand;
     /**
      * @var mixed $secondOperand
      */
-    private $secondOperand;
+    private mixed $secondOperand;
     /**
      * @var array $result
      */
@@ -34,9 +34,9 @@ class EmojiCalculatorSubtraction implements EmojiCalculatorOperation
     }
 
     /**
-     * @return mixed|void
+     * @return array
      */
-    public function perform():mixed
+    public function perform(): array
     {
         $this->result['operation'] = 'Subtraction';
         $this->result['result'] = $this->firstOperand - $this->secondOperand;

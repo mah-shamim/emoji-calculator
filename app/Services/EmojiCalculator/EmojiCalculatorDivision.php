@@ -12,11 +12,11 @@ class EmojiCalculatorDivision implements EmojiCalculatorOperation
     /**
      * @var mixed $firstOperand
      */
-    private $firstOperand;
+    private mixed $firstOperand;
     /**
      * @var mixed $secondOperand
      */
-    private $secondOperand;
+    private mixed $secondOperand;
     /**
      * @var array $result
      */
@@ -34,18 +34,18 @@ class EmojiCalculatorDivision implements EmojiCalculatorOperation
     }
 
     /**
-     * @return mixed|void
+     * @return array
      */
-    public function perform():mixed
+    public function perform(): array
     {
-        if($this->secondOperand == 0){
-            $this->result['operation'] = 'Division';
-            $this->result['result'] = "Can't divide by 0";
-            $this->result['explanation'] = $this->firstOperand .' ÷ '. $this->secondOperand .' = '. $this->result['result'];
-        }else{
+        if($this->secondOperand != 0) {
             $this->result['operation'] = 'Division';
             $this->result['result'] = $this->firstOperand / $this->secondOperand;
-            $this->result['explanation'] = $this->firstOperand .' ÷ '. $this->secondOperand .' = '. $this->result['result'];
+            $this->result['explanation'] = $this->firstOperand . ' ÷ ' . $this->secondOperand . ' = ' . $this->result['result'];
+        } else {
+            $this->result['operation'] = 'Division';
+            $this->result['result'] = "Can't divide by 0";
+            $this->result['explanation'] = $this->firstOperand . ' ÷ ' . $this->secondOperand . ' = ' . $this->result['result'];
         }
         return $this->result;
     }

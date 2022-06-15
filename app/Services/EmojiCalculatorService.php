@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Services;
-
 
 use App\Services\EmojiCalculator\EmojiCalculatorAddition;
 use App\Services\EmojiCalculator\EmojiCalculatorDefault;
@@ -15,19 +13,19 @@ class EmojiCalculatorService
     /**
      * @var string $expression
      */
-    private $expression;
+    private string $expression;
     /**
      * @var mixed $firstOperand
      */
-    private $firstOperand;
+    private mixed $firstOperand;
     /**
      * @var mixed $secondOperand
      */
-    private $secondOperand;
+    private mixed $secondOperand;
     /**
      * @var string $operator
      */
-    private $operator;
+    private string $operator;
 
     /**
      * EmojiCalculatorService constructor.
@@ -41,7 +39,8 @@ class EmojiCalculatorService
      * @param string $text
      * @return array
      */
-    public function calculate(string $text){
+    public function calculate(string $text): array
+    {
         $this->expression = (strtolower($text));
         return $this->emojiExpression();
 
@@ -53,14 +52,20 @@ class EmojiCalculatorService
     private function emojiExpression(): array
     {
         $output_array = array();
-        if(preg_match('/(-?[0-9]+)(u\+[0-9a-fA-F]{5}|👽|💀|👻|😱|alien|skull|ghost|scream)(-?[0-9]+)/i', $this->expression, $output_array)>0){
-            $this->firstOperand = $output_array[1]??'';
-            $this->secondOperand = $output_array[3]??'';
-            $this->operator = $output_array[2]??'';
+        if(
+            preg_match(
+                '/(-?[0-9]+)(u\+[0-9a-fA-F]{5}|👽|💀|👻|😱|alien|skull|ghost|scream)(-?[0-9]+)/i',
+                $this->expression,
+                $output_array
+            ) > 0
+        ){
+            $this->firstOperand = $output_array[1] ?? '';
+            $this->secondOperand = $output_array[3] ?? '';
+            $this->operator = $output_array[2] ?? '';
         }else{
-            $this->firstOperand = $output_array[1]??'';
-            $this->secondOperand = $output_array[3]??'';
-            $this->operator = $output_array[2]??'';
+            $this->firstOperand = $output_array[1] ?? '';
+            $this->secondOperand = $output_array[3] ?? '';
+            $this->operator = $output_array[2] ?? '';
         }
         return $this->calculator();
     }

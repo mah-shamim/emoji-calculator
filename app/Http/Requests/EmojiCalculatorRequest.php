@@ -8,8 +8,6 @@ class EmojiCalculatorRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
-     *
-     * @return bool
      */
     public function authorize(): bool
     {
@@ -24,7 +22,7 @@ class EmojiCalculatorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'expression'=>['required', 'string']
+            'expression' => ['required', 'string'],
         ];
     }
 }

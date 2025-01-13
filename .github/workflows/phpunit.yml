@@ -26,3 +26,6 @@ jobs:
 
       - name: Run PHPUnit tests
         run: php artisan test
+
+      - name: Run PHPUnit Test Coverage
+        run: php artisan test --coverage

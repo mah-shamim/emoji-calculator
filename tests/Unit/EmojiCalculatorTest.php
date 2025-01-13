@@ -5,16 +5,29 @@ use PHPUnit\Framework\TestCase;
 
 class EmojiCalculatorTest extends TestCase
 {
+
+    /**
+     * @var EmojiCalculatorService
+     */
+    protected EmojiCalculatorService $emojiCalculator;
+
+    /**
+     * @return void
+     */
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->emojiCalculator = new EmojiCalculatorService();
+    }
+
     /**
      * Test can create addition class and returns correct value
      *
      * @return void
      */
-    public function testCalculateExecuteAddition()
+    public function testCalculateExecuteAddition(): void
     {
-        $emojiCalculatorResult = new EmojiCalculatorService();
-
-        $sum = $emojiCalculatorResult->calculate('5👽5');
+        $sum = $this->emojiCalculator->calculate('5👽5');
 
         $this->assertEquals($sum['result'],10);
     }
@@ -24,13 +37,11 @@ class EmojiCalculatorTest extends TestCase
      *
      * @return void
      */
-    public function testCalculateExecuteSubtraction()
+    public function testCalculateExecuteSubtraction(): void
     {
-        $emojiCalculatorResult = new EmojiCalculatorService();
+        $subtraction = $this->emojiCalculator->calculate('20💀10');
 
-        $sum = $emojiCalculatorResult->calculate('20💀10');
-
-        $this->assertEquals($sum['result'],10);
+        $this->assertEquals($subtraction['result'],10);
     }
 
     /**
@@ -38,13 +49,11 @@ class EmojiCalculatorTest extends TestCase
      *
      * @return void
      */
-    public function testCalculateExecuteMultiplication()
+    public function testCalculateExecuteMultiplication(): void
     {
-        $emojiCalculatorResult = new EmojiCalculatorService();
+        $multiplication = $this->emojiCalculator->calculate('20👻10');
 
-        $sum = $emojiCalculatorResult->calculate('20👻10');
-
-        $this->assertEquals($sum['result'],200);
+        $this->assertEquals($multiplication['result'],200);
     }
 
     /**
@@ -52,13 +61,11 @@ class EmojiCalculatorTest extends TestCase
      *
      * @return void
      */
-    public function testCalculateExecuteDivision()
+    public function testCalculateExecuteDivision(): void
     {
-        $emojiCalculatorResult = new EmojiCalculatorService();
+        $division = $this->emojiCalculator->calculate('20😱10');
 
-        $sum = $emojiCalculatorResult->calculate('20😱10');
-
-        $this->assertEquals($sum['result'],2);
+        $this->assertEquals($division['result'],2);
     }
 
     /**
@@ -66,12 +73,10 @@ class EmojiCalculatorTest extends TestCase
      *
      * @return void
      */
-    public function testCalculateExecuteDivisionByZero()
+    public function testCalculateExecuteDivisionByZero(): void
     {
-        $emojiCalculatorResult = new EmojiCalculatorService();
+        $divisionByZero = $this->emojiCalculator->calculate('20😱0');
 
-        $sum = $emojiCalculatorResult->calculate('20😱0');
-
-        $this->assertEquals($sum['result'],"Can't divide by 0");
+        $this->assertEquals($divisionByZero['result'],"Can't divide by 0");
     }
 }

@@ -2,20 +2,35 @@
 
 ## Installation
 - Git clone the project repository from this link: [Emoji Calculator](https://github.com/mah-shamim/emoji-calculator.git)
-- Execute this  command to install composer dependence
+
+# How to install
+
+Run this command to clone
 ```bash
-composer install
-```
-- Create an application Encryption Key using this command
-```bash
-php artisan key:generate
+    git clone https://github.com/mah-shamim/emoji-calculator.git
 ```
 
-## Application Run
-- To start the application run this command
+Go to emoji-calculator folder
 ```bash
-php artisan serve --port=5004
+    cd emoji-calculator
 ```
+
+Pull the docker image
+```bash
+    docker pull mahshamim/laraedit:8.1
+```
+Run the container
+```bash
+    docker run -tid -p 3000:80 -p 3001:3306 -p 3002:22 --name emoji-calculator -d -v  /path/to/your/app:/var/www/html/app mahshamim/laraedit:8.1
+```
+
+- Execute this  command to install composer dependence
+```bash
+cd var/www/html/app/
+
+composer install --ignore-platfrom-reqs
+```
+
 - Click on this link: [Emoji Calculator](http://127.0.0.1:5004) to open application
 
 ## Unit Test

@@ -1,31 +1,19 @@
 <?php
 
-
 namespace App\Services\EmojiCalculator;
-
 
 use App\Interfaces\EmojiCalculator\EmojiCalculatorOperation;
 
 class EmojiCalculatorSubtraction implements EmojiCalculatorOperation
 {
-
-    /**
-     * @var mixed $firstOperand
-     */
     private mixed $firstOperand;
-    /**
-     * @var mixed $secondOperand
-     */
+
     private mixed $secondOperand;
-    /**
-     * @var array $result
-     */
-    private array $result = array();
+
+    private array $result = [];
 
     /**
      * EmojiCalculatorAddition constructor.
-     * @param $firstOperand
-     * @param $secondOperand
      */
     public function __construct($firstOperand, $secondOperand)
     {
@@ -33,14 +21,12 @@ class EmojiCalculatorSubtraction implements EmojiCalculatorOperation
         $this->secondOperand = $secondOperand;
     }
 
-    /**
-     * @return array
-     */
     public function perform(): array
     {
         $this->result['operation'] = 'Subtraction';
         $this->result['result'] = $this->firstOperand - $this->secondOperand;
-        $this->result['explanation'] = $this->firstOperand .' − '. $this->secondOperand .' = '. $this->result['result'];
+        $this->result['explanation'] = $this->firstOperand.' − '.$this->secondOperand.' = '.$this->result['result'];
+
         return $this->result;
     }
 }

@@ -10,21 +10,12 @@ use App\Services\EmojiCalculator\EmojiCalculatorSubtraction;
 
 class EmojiCalculatorService
 {
-    /**
-     * @var string $expression
-     */
     private string $expression;
-    /**
-     * @var mixed $firstOperand
-     */
+
     private mixed $firstOperand;
-    /**
-     * @var mixed $secondOperand
-     */
+
     private mixed $secondOperand;
-    /**
-     * @var string $operator
-     */
+
     private string $operator;
 
     /**
@@ -35,22 +26,16 @@ class EmojiCalculatorService
         $this->expression = '';
     }
 
-    /**
-     * @param string $text
-     * @return array
-     */
     public function calculate(string $text): array
     {
         $this->expression = (strtolower($text));
+
         return $this->emojiExpression();
     }
 
-    /**
-     * @return array
-     */
     private function emojiExpression(): array
     {
-        $output_array = array();
+        $output_array = [];
         if (
             preg_match(
                 '/(-?[0-9]+)(u\+[0-9a-fA-F]{5}|👽|💀|👻|😱|alien|skull|ghost|scream)(-?[0-9]+)/i',
@@ -66,15 +51,13 @@ class EmojiCalculatorService
             $this->secondOperand = $output_array[3] ?? '';
             $this->operator = $output_array[2] ?? '';
         }
+
         return $this->calculator();
     }
 
-    /**
-     * @return array
-     */
     private function calculator(): array
     {
-        $result = array();
+        $result = [];
         $result['operation'] = '';
         $result['explanation'] = '';
         $result['result'] = '';
@@ -109,6 +92,7 @@ class EmojiCalculatorService
                 $result = new EmojiCalculatorDefault($this->firstOperand, $this->secondOperand);
                 break;
         }
+
         return $result->perform();
     }
 }

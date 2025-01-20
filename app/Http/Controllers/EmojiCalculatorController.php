@@ -14,7 +14,6 @@ class EmojiCalculatorController extends Controller
 
     /**
      * EmojiCalculatorController constructor.
-     * @param EmojiCalculatorService $emojiCalculatorService
      */
     public function __construct(EmojiCalculatorService $emojiCalculatorService)
     {
@@ -23,20 +22,16 @@ class EmojiCalculatorController extends Controller
 
     /**
      * Display a listing of the resource.
-     *
      */
     public function index(): Factory|View|Application
     {
         return view('emoji-calculator.index');
     }
 
-    /**
-     * @param EmojiCalculatorRequest $emojiCalculatorRequest
-     * @return array
-     */
     public function calculate(EmojiCalculatorRequest $emojiCalculatorRequest): array
     {
         $expression = $emojiCalculatorRequest->expression;
+
         return $this->emojiCalculatorService->calculate($expression);
     }
 }
